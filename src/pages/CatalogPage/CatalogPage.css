@@ -1,0 +1,48 @@
+.CatalogPage {
+    min-height: 80vh;
+    padding: 3em 0;
+}
+
+.CatalogPage h1 {
+    font-weight: 800;
+    margin-left: 0.25em;
+    margin-bottom: 0.5em;
+}
+
+.CatalogPage p.text-muted {
+    max-width: 50%;
+}
+
+.CatalogPage-Add {
+    float: right;
+}
+
+@media (max-width: 768px) {
+    .CatalogPage p.text-muted {
+        max-width: 100%;
+    }
+}
+
+.CatalogPage-Tr {
+    width: 100%;
+    display: flex;
+}
+.CatalogPageTd-Logo {
+    border-radius: 5px;
+    width: 130px;
+    text-align: left;
+    padding: 10px;
+    margin: 10px;
+    background: #fcfcfc;
+}
+.CatalogPageTd-Image {
+    width: 100px;
+}
+.CatalogPageTd-N {
+    border-radius: 5px;
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    margin: 10px;
+    background: #fcfcfc;
+}

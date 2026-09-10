@@ -1,0 +1,144 @@
+body {
+    background-color: green;
+}
+
+.tag {
+    text-align: center;
+}
+
+.slick-dots {
+    border-bottom: 1px solid #333333;
+    margin-bottom: -5%;
+}
+
+.slick-slide img {
+    margin: auto;
+    width: 50%;
+    height: 50%;
+}
+
+.slick-prev {
+    background-color: #ffcc33;
+    background-size: 5%;
+    width: 40px;
+    height: 40px;
+}
+
+.slick-arrow {
+    background-color: #ffcc33;
+    background-size: 5%;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.slick-arrow:hover,
+.slick-arrow:focus,
+.slick-prev:hover,
+.slick-prev:focus {
+    background-color: rgba(44, 44, 58, 0.49);
+}
+
+.slick-dots {
+    font-size: 10px;
+    bottom: 10px;
+    z-index: 50;
+}
+
+.slick-dots li button {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(44, 44, 58, 0.49) !important;
+    border-radius: 8px !important;
+}
+
+.slick-dots li button::before {
+    display: none;
+}
+
+@media screen and (max-width: 800px) {
+    .slick-arrow,
+    .slick-prev {
+        display: none !important;
+    }
+}
+
+.rangeRating {
+    border: #333333;
+}
+
+.slick-slide .content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+.content > .video-container {
+    width: 100%;
+}
+
+.content > .VideoPlayer .video-container video {
+    box-shadow: none;
+}
+
+.content .VideoPlayer .video-container {
+    padding-inline: 40px;
+    width: 100%;
+}
+
+.content > .VideoPlayer {
+    width: 100%;
+    height: 864px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    /* height: 100%; */
+}
+
+.vert img {
+    height: 864px;
+    width: 648px;
+    border-radius: 10px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    object-position: center;
+}
+
+@media screen and (max-width: 800px) {
+    .vert img {
+        height: 600px;
+        width: 450px;
+    }
+
+    .content > .VideoPlayer {
+        height: 600px;
+    }
+
+    .content {
+        padding-bottom: 15px;
+    }
+}
+
+@media screen and (max-width: 510px) {
+    .vert img {
+        height: 507px;
+        width: 380px;
+    }
+
+    .content > .VideoPlayer {
+        height: 507px;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .vert img {
+        height: 427px;
+        width: 320px;
+    }
+
+    .content > .VideoPlayer {
+        height: 427px;
+    }
+}

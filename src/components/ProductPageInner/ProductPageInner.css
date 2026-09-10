@@ -1,0 +1,267 @@
+.ProductPageInner {
+    padding: 3em 0;
+}
+
+/*header*/
+.ProductPageInner header h1 {
+    font-weight: 800;
+    margin-bottom: 0.75em;
+}
+
+/*breadcrumbs*/
+.ProductPageInner header .breadcrumbs {
+    margin-bottom: 2.5em;
+    display: flex;
+    align-items: center;
+}
+
+.ProductPageInner header .breadcrumbs p,
+.ProductPageInner header .breadcrumbs a {
+    margin: 0;
+    color: var(--bs-dark);
+}
+.ProductPageInner header .breadcrumbs img {
+    margin: 0.2em 0.35em 0 0.35em;
+}
+
+/*body*/
+.ProductPageInner .inner-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.ProductPageInner .inner-body img {
+    border-radius: var(--bs-radius);
+    width: 100%;
+}
+.ProductPageInner .inner-body .content {
+    width: 100%;
+}
+
+/*footer*/
+.ProductPageInner footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 4em 0 1em;
+}
+
+.ProductPageInner footer h2 {
+    width: 100%;
+    font-weight: 800;
+    margin-bottom: 0.75em;
+}
+
+.ProductPageInner footer .content {
+    width: 100%;
+    margin: 1.5em 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    white-space: pre-line !important;
+}
+.ProductPageInner footer .content.right {
+    flex-direction: row-reverse;
+}
+.ProductPageInner footer .content .text {
+    width: 60%;
+}
+.ProductPageInner footer .content .text h3 {
+    font-weight: 700;
+    margin-bottom: 0.25em;
+}
+.ProductPageInner footer .content.vert .text h5 {
+    font-size: 16px;
+}
+.ProductPageInner footer .content .text p {
+    text-align: left;
+}
+.ProductPageInner footer .content img,
+.ProductPageInner footer .content video {
+    width: calc(35% - 1em);
+    border-radius: var(--bs-radius);
+    box-shadow: 15px 15px 35px 0 rgba(112, 124, 151, 0.15);
+}
+
+.ProductPageInner .row {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 60px;
+    width: 100%;
+}
+
+.ProductPageInner .row .contacts {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+}
+
+.ProductPageInner .row .contacts a {
+    width: 40%;
+    text-decoration: none;
+}
+
+.ProductPageInner .row .contacts a button {
+    width: 100%;
+}
+
+.ProductPageInner .ratingBtn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+}
+
+.btnLike,
+.btnDislike {
+    width: 60px !important;
+    height: 60px !important;
+    border: none;
+    text-overflow: clip;
+}
+
+.like,
+.dislike {
+    width: 30px;
+    height: 30px;
+    color: #ffcc33;
+}
+
+.dislike {
+    transform: rotateY(180deg);
+}
+
+.ProductPageInner .content-text {
+    padding-top: 20px;
+    font-size: 20px;
+}
+
+@media screen and (max-width: 992px) {
+    .ProductPageInner .row {
+        margin-top: 30px;
+    }
+
+    .ProductPageInner .row .contacts {
+        margin: 0;
+        width: 30%;
+        height: 60px;
+    }
+
+    .ProductPageInner .row .contacts a {
+        height: 100%;
+        display: block;
+    }
+
+    .ProductPageInner .row .contacts a button {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    .ProductPageInner .ratingBtn {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .ProductPageInner .row {
+        margin-top: 25px;
+    }
+
+    .ProductPageInner .row .contacts {
+        margin: 0;
+        width: 30%;
+        height: 60px;
+    }
+
+    .ProductPageInner .row .contacts a button .phoneSvg {
+        width: 23px;
+    }
+
+    .ProductPageInner .row .contacts a button .websiteSvg {
+        width: 25px;
+    }
+
+    .ProductPageInner .row .contacts a,
+    .ProductPageInner .row .contacts a button {
+        height: 40px;
+        width: 40px;
+    }
+
+    .ProductPageInner .ratingBtn {
+        width: 70%;
+    }
+
+    .btnLike,
+    .btnDislike {
+        width: 40px !important;
+        height: 40px !important;
+        border: none;
+        text-overflow: clip;
+        padding: 0;
+    }
+
+    .like,
+    .dislike {
+        width: 25px;
+        height: 25px;
+        color: #ffcc33;
+    }
+
+    .ProductPageInner .row .contacts a button {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 510px) {
+    .ProductPageInner .ratingBtn {
+        width: 50%;
+        justify-content: space-evenlyz;
+    }
+
+    .ProductPageInner .row .contacts {
+        width: 50%;
+    }
+
+    .btnLike,
+    .btnDislike {
+        width: 40px !important;
+        height: 40px !important;
+        border: none;
+        text-overflow: clip;
+        padding: 0;
+    }
+
+    .like,
+    .dislike {
+        width: 25px;
+        height: 25px;
+        color: #ffcc33;
+    }
+
+    .ProductPageInner .row .contacts a button {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .ProductPageInner .content-text {
+        padding-top: 15px;
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 510px) {
+    .ProductPageInner .content-text {
+        padding-top: 10px;
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,178 @@
+.FooterBottom {
+    padding: 3em 0;
+    border-top: 1px solid #00000052;
+}
+
+.FooterBottom .container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+/*left block*/
+.FooterBottom .navbar-brand {
+    font-size: 18px;
+    margin-bottom: 0.5em;
+}
+.FooterBottom .left p.small {
+    line-height: 1.1;
+    font-weight: 300;
+    color: #878787;
+}
+
+.FooterBottom .footer-menu {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+}
+
+.FooterBottom .footer-home {
+    color: #000;
+    text-decoration: none;
+}
+
+.reklamBtn a {
+    font-size: 16px;
+}
+
+/*right*/
+.right {
+    display: flex;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+.right .inner {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.right p.small {
+    text-align: right;
+    margin: 0;
+    opacity: 0.75;
+    font-weight: 300;
+}
+.right h6 {
+    margin: 0;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.footer-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.footer-credits {
+    font-size: 14px;
+    color: #878787;
+    display: none;
+}
+
+.footer-search-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #418fe2;
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    gap: 8px;
+}
+
+.footer-search-btn p {
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+
+.footer-search-btn:hover {
+    background-color: #2980b9;
+}
+
+.footer-phone {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1px solid #aaa;
+    border-radius: 999px;
+    color: #333;
+    font-size: 14px;
+    text-decoration: none;
+    gap: 8px;
+}
+
+.footer-phone p {
+    color: #878787;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.icon {
+    font-size: 16px;
+}
+
+/* Стили для ссылок в футере (как у Главной) */
+.footer-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 0.25rem 0;
+    transition: color 0.2s ease;
+    display: inline-block;
+    margin-right: 1.5rem;
+    position: relative;
+}
+
+.footer-link:hover {
+    color: #667eea;
+    text-decoration: none;
+}
+
+.footer-link:last-child {
+    margin-right: 0;
+}
+
+/* Анимация подчеркивания при наведении (опционально) */
+.footer-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #667eea;
+    transition: width 0.3s ease;
+}
+
+.footer-link:hover::after {
+    width: 100%;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .footer-link {
+        display: block;
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+    
+    .footer-link:last-child {
+        margin-bottom: 0;
+    }
+}
+
+/* Если нужно убрать стили у существующей кнопки "Заказать рекламу" */
+.reklamBtn {
+    display: none; /* Скрываем старый div с кнопкой */
+}

@@ -1,0 +1,5 @@
+.CityModal form input,
+.CityModal form select,
+.CityModal form textarea {
+    margin-bottom: 0.5em;
+}

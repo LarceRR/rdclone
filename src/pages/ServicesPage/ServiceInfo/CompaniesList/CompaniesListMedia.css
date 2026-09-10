@@ -1,0 +1,94 @@
+@media screen and (max-width: 510px) {
+    .companies-section {
+        padding: 0;
+        padding-top: 16px;
+    }
+
+    .company-card {
+        width: 100%;
+        padding: 0 0 16px;
+    }
+    .company-name {
+        font-size: 20px;
+    }
+
+    .company-desc {
+        font-size: 14px;
+    }
+
+    .company-button {
+        font-size: 14px;
+        padding: 6px;
+        color: #fff !important;
+        text-decoration: none;
+    }
+    .custom-swiper-nav {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        margin: 24px;
+        padding-bottom: 24px;
+    }
+
+    .custom-swiper-nav button {
+        width: 45px;
+        height: 45px;
+        border: 1px solid #0000001a;
+        border-radius: 8px;
+    }
+
+    .custom-arrow {
+        width: 40px;
+        height: 40px;
+        background-color: white;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        position: relative;
+    }
+    .companies-section .custom-swiper-nav {
+        width: 100%;
+    }
+
+    .carousel-container {
+        margin: 0;
+        width: 100%;
+    }
+
+    .companies-section .swiper-slide {
+        min-width: 155px;
+        max-width: 155px;
+        flex-shrink: 0;
+    }
+
+    .companies-section .company__info {
+        padding: 0 8px;
+    }
+
+    .companies-section .company__title h3 {
+        font-size: 15px;
+    }
+    .companies-section .company__rating {
+        font-size: 12px;
+    }
+
+    .companies-section .company__product {
+        display: none;
+    }
+
+    .companies-section .company__btn {
+        font-size: 12px;
+    }
+
+    .companies-section .custom-swiper-nav {
+        padding: 16px 0 24px;
+        position: relative !important;
+        justify-content: center !important;
+    }
+
+    .companies-section .custom-swiper-nav button {
+        width: 45px;
+    }
+}

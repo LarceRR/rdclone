@@ -1,0 +1,28 @@
+.ServicesPage {
+    min-height: 80vh;
+    padding: 3em 0;
+}
+
+.ServicesPage h1 {
+    font-weight: 800;
+    margin-bottom: 0.25em;
+}
+
+.ServicesPage p.text-muted {
+    max-width: 50%;
+}
+
+@media (max-width: 768px) {
+    .ServicesPage p.text-muted {
+        max-width: 100%;
+    }
+}
+.servicesPage-title {
+    font-size: 22px;
+    font-weight: 400 !important;
+    color: #636363 !important;
+}
+
+.ServicesPage li::marker {
+    color: #636363;
+}

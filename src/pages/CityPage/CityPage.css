@@ -1,0 +1,48 @@
+.CityPage {
+    min-height: 80vh;
+    padding: 3em 0;
+}
+
+.CityPage h1 {
+    font-weight: 800;
+    margin-left: 0.25em;
+    margin-bottom: 0.5em;
+}
+
+.CityPage p.text-muted {
+    max-width: 50%;
+}
+
+.CityPage-Add {
+    float: right;
+}
+
+@media (max-width: 768px) {
+    .CityPage p.text-muted {
+        max-width: 100%;
+    }
+}
+
+.CityPage-Tr {
+    width: 100%;
+    display: flex;
+}
+.CityPageTd-Logo {
+    border-radius: 5px;
+    width: 130px;
+    text-align: left;
+    padding: 10px;
+    margin: 10px;
+    background: #fcfcfc;
+}
+.CityPageTd-Image {
+    width: 100px;
+}
+.CityPageTd-N {
+    border-radius: 5px;
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    margin: 10px;
+    background: #fcfcfc;
+}

@@ -1,0 +1,52 @@
+@media screen and (max-width: 1200px) {
+    .offer-card {
+        width: calc(33.3% - 1em) !important;
+    }
+    .offer-card h6 {
+        font-size: 14px !important;
+    }
+
+    .offer-card .card-title {
+        padding: 12px !important;
+        top: calc(50% - 20px) !important;
+        justify-content: start !important;
+    }
+    .offer-card .card-icon {
+        width: 30px !important;
+        height: 31px !important;
+    }
+
+    .offer-card .card-icon svg {
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .offer-card {
+        width: 250px !important;
+        height: 250px !important;
+    }
+}
+
+@media screen and (max-width: 510px) {
+    .Offer h2 {
+        font-size: 26px !important;
+    }
+    .offer-card {
+        width: 100% !important;
+        aspect-ratio: 1 / 1 !important;
+        height: 100% !important;
+    }
+    .offer-card .card-icon {
+        width: 24px !important;
+        height: 25px !important;
+    }
+    .offer-card h6 {
+        font-size: 14px !important;
+    }
+
+    .offer-card .card-title {
+        width: 90% !important;
+        padding: 10px !important;
+    }
+}

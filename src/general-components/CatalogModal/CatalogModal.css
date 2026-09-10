@@ -1,0 +1,5 @@
+.CatalogModal form input,
+.CatalogModal form select,
+.CatalogModal form textarea {
+    margin-bottom: 0.5em;
+}

@@ -1,0 +1,37 @@
+@media screen and (max-width: 510px) {
+    .companies__top {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    .companies {
+        padding: 24px 0;
+    }
+    .companies h2 {
+        font-size: 21px;
+        text-align: center;
+    }
+
+    .company__info {
+        padding: 16px 8px;
+    }
+
+    .company__title h3 {
+        font-size: 18px;
+    }
+
+    .company__desc {
+        font-size: 11px;
+    }
+
+    .company__btn {
+        padding: 8px;
+    }
+
+    .companies__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .company__media {
+        aspect-ratio: 1/1;
+    }
+}

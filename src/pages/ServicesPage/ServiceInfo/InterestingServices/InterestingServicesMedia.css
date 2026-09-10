@@ -1,0 +1,8 @@
+@media screen and (max-width: 510px) {
+    .interesting-section {
+        padding: 0;
+    }
+    .services-grid {
+        gap: 0;
+    }
+}

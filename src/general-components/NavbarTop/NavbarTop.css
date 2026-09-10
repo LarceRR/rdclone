@@ -1,0 +1,291 @@
+.NavbarTop {
+    padding: 0.75em 0;
+}
+
+.navbar-burger {
+    display: none;
+}
+
+.finder-worker {
+    text-decoration: none;
+    color: #0a0c0d;
+    left: 100%;
+}
+
+.modal-backdrop {
+    display: none;
+}
+
+.dropdown-city-container {
+    display: flex;
+    align-items: center;
+}
+
+.phone {
+    left: 17%;
+    z-index: 100;
+    text-decoration: none !important;
+}
+
+.yellow-but {
+    background: #ffcc33 !important;
+}
+
+.menuContainer {
+    left: 0;
+}
+
+.menuContainer a {
+    font-size: 16px;
+    font-weight: 700;
+}
+/*logo block*/
+.FooterBottom .navbar-brand,
+.NavbarTop .navbar-brand {
+    font-weight: 700;
+    color: #006d8c;
+    display: flex;
+    align-items: center;
+}
+.NavbarTop .navbar-brand:hover {
+    opacity: 0.55;
+}
+.FooterBottom .navbar-brand img.logo {
+    width: auto;
+    height: 35px;
+}
+.NavbarTop .navbar-brand img.logo {
+    width: auto;
+    height: 70px;
+}
+.FooterBottom .navbar-brand .line,
+.NavbarTop .navbar-brand .line {
+    width: 1px;
+    height: 25px;
+    margin: 0 0.35em 0 0.15em;
+    background: var(--bs-dark);
+}
+
+.NavbarTop .but-container {
+    display: flex;
+    align-items: center;
+}
+
+.NavbarTop .but-container a:last-child {
+    margin-left: 0.5em;
+}
+
+.NavbarTop .navbar-menu {
+    display: flex;
+    align-items: center;
+    border: 1px solid #d9d9d9;
+    border-radius: 50px;
+    padding: 7px 24px;
+    gap: 44px;
+    margin-left: 24px;
+}
+.NavbarTop .navbar-home {
+    color: #418fe2;
+    text-decoration: none;
+}
+
+/*links*/
+.NavbarTop .navbar-nav a {
+    padding: 0.25em 0.75em;
+    border-radius: 2em;
+    margin: 0 0.05em;
+    text-decoration: none;
+    color: var(--bs-dark);
+    cursor: pointer;
+}
+/* .NavbarTop .navbar-nav a:hover {
+    background: var(--bs-yellow);
+} */
+
+/*dropdown-city*/
+.NavbarTop .dropdown-city .dropdown-toggle {
+    font-size: 14px;
+    margin-right: 1em;
+    z-index: 10;
+}
+.NavbarTop .dropdown-city .dropdown-item {
+    font-size: 13px;
+    z-index: 10;
+}
+.NavbarTop .dropdown-city .dropdown-item:active {
+    background: var(--bs-yellow);
+    color: var(--bs-dark);
+}
+.NavbarTop .dropdown-city .dropdown-item a {
+    text-decoration: none;
+    color: var(--bs-dark);
+}
+.NavbarTop .but-container .dropdown-city a.dropdown-item:last-child {
+    margin-left: 0;
+}
+.NavbarTop .dropdown-menu.show {
+    top: 60px;
+    border-radius: 20px;
+    backdrop-filter: blur(21px);
+    background: #f7f7f7c2;
+    z-index: 11;
+    width: 318px;
+    left: -113px;
+}
+
+@media screen and (max-width: 768px) {
+    .NavbarTop .dropdown-menu.show {
+        top: 40px;
+        border-radius: 20px;
+        background: #f7f7f7;
+        z-index: 11;
+        left: -40px;
+        width: 218px;
+    }
+}
+
+#popupBasic {
+    padding: 20px;
+}
+
+.NavbarTop .dropdown-city a {
+    color: #000;
+}
+
+.dropdown-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.dropdown-content a {
+    font-size: 28px !important;
+}
+
+.navbar-dropdown-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.navbar-dropdown-search-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #418fe2;
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    gap: 8px;
+}
+
+.navbar-dropdown-search-btn p {
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+
+.navbar-dropdown-search-btn:hover {
+    background-color: #2980b9;
+}
+
+.navbar-dropdown-phone {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1px solid #aaa;
+    border-radius: 999px;
+    color: #333;
+    font-size: 14px;
+    text-decoration: none;
+    gap: 8px;
+}
+
+.navbar-dropdown-phone p {
+    color: #878787;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+}
+/* Стили для инпута города */
+.dropdown-city-container .city-input-toggle {
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+
+.dropdown-city-container .city-input {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    padding: 0.5rem 1rem;
+    cursor: text;
+    width: 200px;
+}
+
+.dropdown-city-container .city-input:focus {
+    box-shadow: none;
+}
+
+.dropdown-city-container .search-input {
+    margin-bottom: 0.5rem;
+}
+
+.dropdown-city-container .fw-bold {
+    font-weight: 700 !important;
+}
+
+.dropdown-city-container .text-danger {
+    color: #dc3545 !important;
+}
+
+.dropdown-city-container .text-danger:hover {
+    background-color: rgba(220, 53, 69, 0.1) !important;
+}
+
+.dropdown-toggle::after {
+    top: 19px;
+    right: 10px;
+    position: absolute;
+    /* display: inline-block; */
+    margin-left: 0.255em;
+    vertical-align: 0.255em;
+    content: '';
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+}
+
+/* Стили для адаптивного инпута */
+.city-input-toggle {
+    display: inline-block;
+    position: relative;
+}
+
+.city-input {
+    min-width: 160px;
+    transition: width 0.2s ease;
+}
+
+/* Стили для сообщения "Город не найден" */
+.dropdown-no-results {
+    padding: 8px 16px;
+    text-align: center;
+}
+
+.dropdown-no-results i {
+    margin-bottom: 8px;
+    color: #6c757d;
+}
+
+.search-input {
+    margin-bottom: 8px;
+}

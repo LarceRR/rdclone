@@ -1,0 +1,158 @@
+@media screen and (max-width: 1400px) {
+    .dropdown-city {
+        left: 0;
+    }
+
+    .phone {
+        left: 10%;
+    }
+
+    .tg {
+        left: -10%;
+    }
+
+    .finder-worker {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .NavbarTop .navbar-nav a {
+        padding: 0.25em 0.75em;
+        border-radius: 0.5em;
+        margin: 0;
+    }
+    .NavbarTop .navbar-brand img.logo {
+        height: 50px;
+    }
+    .NavbarTop .navbar-brand .text {
+        font-size: 18px;
+    }
+    .NavbarTop .but-container a.phone {
+        display: none;
+    }
+
+    .dropdown-city {
+        left: -23%;
+    }
+
+    .tg {
+        left: -50%;
+    }
+
+    .qr-code {
+        left: -5%;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    /*for center links*/
+    .NavbarTop .navbar-brand,
+    .NavbarTop .but-container {
+        width: auto;
+    }
+
+    .dropdown-city {
+        left: -10%;
+    }
+
+    .tg {
+        display: none;
+    }
+
+    .menu {
+        left: 25%;
+    }
+
+    .tg-phone {
+        left: -105%;
+    }
+
+    .finder-worker {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 850px) {
+    .finder-worker {
+        left: 100%;
+    }
+
+    .dropdown-city {
+        left: -53%;
+    }
+
+    .qr-code {
+        left: 10%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .FooterBottom .navbar-brand,
+    .NavbarTop .navbar-brand {
+        font-size: 15px;
+    }
+
+    .dropdown-city {
+        left: -53%;
+    }
+
+    .tg {
+        display: none;
+    }
+
+    .menu {
+        left: 17.5%;
+    }
+    .navbar-menu {
+        top: 10px;
+        right: 10px;
+        position: absolute;
+        padding: unset !important;
+        border: unset !important;
+    }
+
+    .navbar-home {
+        display: none;
+    }
+
+    .NavbarTop .container {
+        flex-direction: column;
+        align-items: start !important;
+    }
+}
+
+/* 
+@media screen and (max-width: 400px) {
+    .NavbarTop .navbar-brand img,
+    .NavbarTop .navbar-brand .line {
+        display: none !important;
+    }
+    .NavbarTop .navbar-brand {
+        font-weight: 800;
+    }
+    .NavbarTop .dropdown-city .dropdown-toggle {
+        margin-left: 0;
+        margin-right: 0.5em;
+    }
+    .NavbarTop .navbar-brand .text {
+        font-size: 16px;
+    }
+
+    .dropdown-city {
+        left: -53%;
+    }
+
+    .city {
+        margin-left: -15%;
+        font-size: 13px;
+    }
+
+    .tg {
+        display: none;
+    }
+
+    .menu {
+        left: 15%;
+    }
+} */

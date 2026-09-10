@@ -1,0 +1,61 @@
+@media (max-width: 992px) {
+    .promo-left {
+        width: 100%;
+        background-color: #ffffff96;
+    }
+
+    .promo-left .promo-title,
+    .promo-subtitle {
+        font-size: 32px;
+    }
+
+    .promo-qr {
+        width: 140px;
+        height: 144px;
+    }
+}
+
+@media (max-width: 510px) {
+    .promo-container {
+        background-image: none;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0;
+        border-radius: 0;
+    }
+    .promo-left {
+        font-size: 25px !important;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    .promo-subtitle {
+        font-size: 25px !important;
+        text-align: center;
+    }
+
+    .promo-title {
+        font-size: 25px !important;
+        text-align: center;
+    }
+    .promo-qr {
+        display: none;
+    }
+
+    .promo-buttons {
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .promo-buttons p {
+        font-size: 14px;
+    }
+
+    .promo-buttons svg {
+        width: 15px;
+    }
+
+    .promo-buttons a {
+        padding: 6px;
+    }
+}

@@ -1,0 +1,10 @@
+.Loader {
+    height: calc(100vh - 291px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Loader img {
+    width: 50px;
+}

@@ -1,0 +1,18 @@
+import axios from 'axios';
+import { API_LINK, API_PROFESSION_DELETE } from '../../constants/api.js';
+
+export const fncSetDelete = (e) => {
+    const options = { headers: { 'Content-type': `multipart/form-data` } };
+
+    axios
+        .post(API_LINK + API_PROFESSION_DELETE, { e }, options)
+        .then((res) => {
+            //console.log(res)
+        })
+        .catch(function (error) {
+            //console.log(error)
+        })
+        .finally(() => {
+            window.location.reload();
+        });
+};

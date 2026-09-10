@@ -1,0 +1,77 @@
+.ReklamaModal form input,
+.ReklamaModal form select,
+.ReklamaModal form textarea {
+    margin-bottom: 0.5em;
+}
+.actions_footer > button {
+    color: #fff !important;
+}
+.custom-backdrop-fix {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 1040; /* чуть ниже модалки */
+}
+.form-modal_element,
+.other-fields,
+.research-company {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.form-modal_element {
+    gap: 1rem;
+}
+.form-modal_element,
+.control-wrapper_element {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.control-wrapper_element {
+    gap: 0.25rem;
+}
+
+.media-loader-wrapper {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.image-controller_wrapper,
+.video-controller_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.info-inn_danger {
+    font-size: 12px;
+    color: red;
+}
+
+.company-preloaded-data {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    margin-bottom: 1rem;
+}
+
+.company-preloaded-data-physFace,
+.company-preloaded-data-organizationType {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.company-preloaded-data-physFace strong,
+.company-preloaded-data-organizationType strong {
+    color: #495057;
+    margin-right: 0.5rem;
+}

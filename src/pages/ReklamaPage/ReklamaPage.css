@@ -1,0 +1,48 @@
+.ReklamaPage {
+    min-height: 80vh;
+    padding: 3em 0;
+}
+
+.ReklamaPage h1 {
+    font-weight: 800;
+    margin-left: 0.25em;
+    margin-bottom: 0.5em;
+}
+
+.ReklamaPage p.text-muted {
+    max-width: 50%;
+}
+
+.ReklamaPage-Add {
+    float: right;
+}
+
+@media (max-width: 768px) {
+    .ReklamaPage p.text-muted {
+        max-width: 100%;
+    }
+}
+
+.ReklamaPage-Tr {
+    width: 100%;
+    display: flex;
+}
+.ReklamaPageTd-Logo {
+    border-radius: 5px;
+    width: 130px;
+    text-align: left;
+    padding: 10px;
+    margin: 10px;
+    background: #fcfcfc;
+}
+.ReklamaPageTd-Image {
+    width: 100px;
+}
+.ReklamaPageTd-N {
+    border-radius: 5px;
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    margin: 10px;
+    background: #fcfcfc;
+}

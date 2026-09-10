@@ -1,0 +1,67 @@
+.interesting-section {
+    padding: 40px;
+    margin-top: 40px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 24px;
+}
+
+.services-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+/* 
+.services-grid .ProductCard {
+    width: 270px !important;
+    height: 270px !important;
+    position: relative;
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition:
+        transform 0.3s,
+        box-shadow 0.3s;
+} */
+
+.services-grid .ProductCard a {
+    height: 100%;
+}
+.ProductCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.ProductCard .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ProductCard .card-title {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-weight: bold;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.ProductCard h6 {
+    margin: 0;
+    white-space: normal;
+}
+
+.services-grid svg {
+    height: 54px;
+}
