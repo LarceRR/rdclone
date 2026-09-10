@@ -37,7 +37,7 @@ const MediaImage = ({ media, title }) => (
     />
 );
 
-const MediaVideo = ({ media }) => (
+const MediaVideo = ({ media, load }) => (
     <video
         controls
         muted
@@ -45,7 +45,12 @@ const MediaVideo = ({ media }) => (
         preload="none"
         className="w-full h-full object-cover"
     >
-        <source src={`${import.meta.env.VITE_GENERAL_IMAGE}${media}`} type="video/mp4" />
+        {load && (
+            <source
+                src={`${import.meta.env.VITE_GENERAL_IMAGE}${media}`}
+                type="video/mp4"
+            />
+        )}
     </video>
 );
 
@@ -63,7 +68,7 @@ const CompanyMedia = ({ company, mobile }) => {
     }
 
     // Mobile Safari is especially sensitive to multiple video elements in a list.
-    // Never mount a video on the category grid for small screens.
+    // Never mount a video source on the category grid for small screens.
     if (mobile) {
         return firstImage ? (
             <MediaImage media={firstImage} title={company?.title} />
@@ -87,7 +92,7 @@ const CompanyMedia = ({ company, mobile }) => {
             {mediaList.map((media, index) => (
                 <SwiperSlide key={`${company?.id}-${media}-${index}`}>
                     {isVideo(media) ? (
-                        <MediaVideo media={media} />
+                        <MediaVideo media={media} load={index === activeIndex} />
                     ) : (
                         <MediaImage media={media} title={company?.title} />
                     )}
@@ -116,7 +121,6 @@ const CompanyCard = ({ company, top, mobile }) => (
     <Link to={`/company/${company?.id}`} className={`company ${top ? 'company--top' : ''}`}>
         <div className="company__media">
             {top && <div className="company__badge">Рекомендуем</div>}
-
             {!mobile && <SwiperNavigation companyId={company?.id} />}
             <CompanyMedia company={company} mobile={mobile} />
         </div>
