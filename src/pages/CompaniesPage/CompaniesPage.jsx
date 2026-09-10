@@ -1,6 +1,4 @@
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
@@ -13,25 +11,163 @@ import axios from 'axios';
 import { useMediaQuery } from 'react-responsive';
 import Loader from '../../components/Loader/Loader';
 
+const MEDIA_KEYS = Array.from({ length: 20 }, (_, index) => `image${index + 1}`);
+
+const getMediaList = (company) =>
+    MEDIA_KEYS.map((key) => company?.[key]).filter(
+        (media) => typeof media === 'string' && media.trim(),
+    );
+
+const isVideo = (media) => /\.mp4(?:$|[?#])/i.test(media || '');
+
+const getFirstImage = (mediaList) =>
+    mediaList.find((media) => !isVideo(media)) || null;
+
+const MediaImage = ({ media, title }) => (
+    <img
+        loading="lazy"
+        decoding="async"
+        onError={(e) => {
+            if (e.currentTarget.src.endsWith('/images/no-img.png')) return;
+            e.currentTarget.src = '/images/no-img.png';
+        }}
+        src={`${import.meta.env.VITE_GENERAL_IMAGE}${media}`}
+        alt={title || ''}
+        className="w-full h-full object-cover"
+    />
+);
+
+const MediaVideo = ({ media, load }) => (
+    <video
+        controls
+        muted
+        playsInline
+        preload="none"
+        className="w-full h-full object-cover"
+    >
+        {load && (
+            <source
+                src={`${import.meta.env.VITE_GENERAL_IMAGE}${media}`}
+                type="video/mp4"
+            />
+        )}
+    </video>
+);
+
+const CompanyMedia = ({ company, mobile }) => {
+    const mediaList = useMemo(() => getMediaList(company), [company]);
+    const firstImage = getFirstImage(mediaList);
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    useEffect(() => {
+        setActiveIndex(0);
+    }, [company?.id]);
+
+    if (!mediaList.length) {
+        return <MediaImage media="/images/no-img.png" title={company?.title} />;
+    }
+
+    // Mobile Safari is especially sensitive to multiple video elements in a list.
+    // Never mount a video source on the category grid for small screens.
+    if (mobile) {
+        return firstImage ? (
+            <MediaImage media={firstImage} title={company?.title} />
+        ) : (
+            <MediaImage media="/images/no-img.png" title={company?.title} />
+        );
+    }
+
+    return (
+        <Swiper
+            modules={[Navigation]}
+            spaceBetween={20}
+            slidesPerView={1}
+            navigation={{
+                prevEl: `.button-prev-${company?.id}`,
+                nextEl: `.button-next-${company?.id}`,
+            }}
+            loop={mediaList.length > 1}
+            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+        >
+            {mediaList.map((media, index) => (
+                <SwiperSlide key={`${company?.id}-${media}-${index}`}>
+                    {isVideo(media) ? (
+                        <MediaVideo media={media} load={index === activeIndex} />
+                    ) : (
+                        <MediaImage media={media} title={company?.title} />
+                    )}
+                </SwiperSlide>
+            ))}
+        </Swiper>
+    );
+};
+
+const SwiperNavigation = ({ companyId }) => (
+    <div className="custom-swiper-nav">
+        <button className={`button-prev-${companyId}`} aria-label="Предыдущее фото">
+            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.8334 10.0552H4.16669M4.16669 10.0552L10 15.8885M4.16669 10.0552L10 4.22186" stroke="#3388CC" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+        </button>
+        <button className={`button-next-${companyId}`} aria-label="Следующее фото">
+            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.16669 10.0552H15.8334M15.8334 10.0552L10 4.22186M15.8334 10.0552L10 15.8885" stroke="#3388CC" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+        </button>
+    </div>
+);
+
+const CompanyCard = ({ company, top, mobile }) => (
+    <Link to={`/company/${company?.id}`} className={`company ${top ? 'company--top' : ''}`}>
+        <div className="company__media">
+            {top && <div className="company__badge">Рекомендуем</div>}
+            {!mobile && <SwiperNavigation companyId={company?.id} />}
+            <CompanyMedia company={company} mobile={mobile} />
+        </div>
+
+        <div className="company__info">
+            <div>
+                <div className="company__title">
+                    <h3>{company?.title}</h3>
+                    <div className="company__rating">
+                        ⭐ {Number(company?.rating).toFixed(1)}
+                    </div>
+                </div>
+                <p className="company__product">{company?.product}</p>
+                <p className="company__desc">{company?.description}</p>
+            </div>
+
+            <button
+                className="company__btn"
+                onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.open(company?.site, '_blank', 'noopener,noreferrer');
+                }}
+            >
+                Перейти на сайт
+            </button>
+        </div>
+    </Link>
+);
+
 const CompaniesPage = () => {
     const [dataCategory, setDataCategory] = useState([]);
     const { categoryId } = useParams();
     const { search } = useLocation();
-
     const media500px = useMediaQuery({ query: '(max-width: 510px)' });
+
     const categoryName = search.length
         ? decodeURIComponent(search.replace('?service=', ''))
         : 'Неизвестная категория';
 
     const getCompanyList = async () => {
         try {
-            const response = await axios.get(
-                `${import.meta.env.VITE_API}company`,
-            );
-            const filteredCompany = response?.data?.data.filter(
+            const response = await axios.get(`${import.meta.env.VITE_API}company`);
+            const filteredCompany = response?.data?.data?.filter(
                 (company) => company.category_id == categoryId,
             );
-            const sortedCompany = filteredCompany.sort(
+            const sortedCompany = (filteredCompany || []).sort(
                 (a, b) => a.posi - b.posi,
             );
             setDataCategory(sortedCompany);
@@ -41,398 +177,48 @@ const CompaniesPage = () => {
     };
 
     useEffect(() => {
-        if (categoryId) {
-            getCompanyList();
-        }
+        if (categoryId) getCompanyList();
     }, [categoryId]);
 
-    const sortedCompanies = [...dataCategory]?.sort(
-        (a, b) => b?.rating - a?.rating,
+    const sortedCompanies = useMemo(
+        () => [...dataCategory].sort((a, b) => b?.rating - a?.rating),
+        [dataCategory],
     );
-    const topCompanies = sortedCompanies?.slice(0, 3) || [];
-    const otherCompanies = sortedCompanies?.slice(3) || [];
+    const topCompanies = sortedCompanies.slice(0, 3);
+    const otherCompanies = sortedCompanies.slice(3);
+
+    if (!dataCategory.length) return <Loader />;
 
     return (
         <Container>
-            {topCompanies.length && otherCompanies.length ? (
-                <div className="companies">
-                    <h2>Компании, занимающиеся: {categoryName}</h2>
+            <div className="companies">
+                <h2>Компании, занимающиеся: {categoryName}</h2>
 
+                {!!topCompanies.length && (
                     <div className="companies__top">
-                        {!!topCompanies.length &&
-                            topCompanies?.map((company) => {
-                                return (
-                                    <Link
-                                        to={`/company/${company?.id}`}
-                                        key={company?.id}
-                                        className="company company--top"
-                                    >
-                                        <div className="company__media">
-                                            <div className="company__badge">
-                                                Рекомендуем
-                                            </div>
-
-                                            {typeof company?.image1 ===
-                                            'string' ? (
-                                                !media500px ? (
-                                                    <Swiper
-                                                        modules={[Navigation]}
-                                                        spaceBetween={20}
-                                                        slidesPerView={1}
-                                                        navigation={{
-                                                            prevEl: `.button-prev-${company?.id}`,
-                                                            nextEl: `.button-next-${company?.id}`,
-                                                        }}
-                                                        loop
-                                                    >
-                                                        {[
-                                                            company?.image1,
-                                                            company?.image2,
-                                                            company?.image3,
-                                                            company?.image4,
-                                                            company?.image5,
-                                                            company?.image6,
-                                                            company?.image7,
-                                                            company?.image8,
-                                                            company?.image9,
-                                                            company?.image10,
-                                                            company?.image11,
-                                                            company?.image12,
-                                                            company?.image13,
-                                                            company?.image14,
-                                                            company?.image15,
-                                                            company?.image16,
-                                                            company?.image17,
-                                                            company?.image18,
-                                                            company?.image19,
-                                                            company?.image20,
-                                                        ]
-                                                            ?.filter((el) => el)
-                                                            .map(
-                                                                (
-                                                                    media,
-                                                                    index,
-                                                                ) => (
-                                                                    <SwiperSlide
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                    >
-                                                                        {media &&
-                                                                        media?.includes(
-                                                                            'mp4',
-                                                                        ) ? (
-                                                                            <video
-                                                                                src={`${import.meta.env.VITE_GENERAL_IMAGE}${media}`}
-                                                                                controls
-                                                                                autoPlay
-                                                                                muted
-                                                                                loop
-                                                                                className="w-full h-full object-cover"
-                                                                            ></video>
-                                                                        ) : (
-                                                                            <img
-                                                                                onError={(
-                                                                                    e,
-                                                                                ) =>
-                                                                                    (e.currentTarget.src =
-                                                                                        '/images/no-img.png')
-                                                                                }
-                                                                                src={`${import.meta.env.VITE_GENERAL_IMAGE}${media}`}
-                                                                                alt={
-                                                                                    company?.title
-                                                                                }
-                                                                                className="w-full h-full object-cover"
-                                                                            />
-                                                                        )}
-                                                                    </SwiperSlide>
-                                                                ),
-                                                            )}
-                                                    </Swiper>
-                                                ) : (
-                                                    <img
-                                                        onError={(e) =>
-                                                            (e.currentTarget.src =
-                                                                '/images/no-img.png')
-                                                        }
-                                                        src={`${import.meta.env.VITE_GENERAL_IMAGE}${company?.image1}`}
-                                                    ></img>
-                                                )
-                                            ) : (
-                                                <img
-                                                    onError={(e) =>
-                                                        (e.currentTarget.src =
-                                                            '/images/no-img.png')
-                                                    }
-                                                    src={`${import.meta.env.VITE_GENERAL_IMAGE}${company?.image1}`}
-                                                ></img>
-                                            )}
-                                            {typeof company?.image1 ===
-                                                'string' && !media500px ? (
-                                                <div className="custom-swiper-nav">
-                                                    <button
-                                                        className={`button-prev-${company?.id}`}
-                                                    >
-                                                        <svg
-                                                            width="20"
-                                                            height="21"
-                                                            viewBox="0 0 20 21"
-                                                            fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                            <path
-                                                                d="M15.8334 10.0552H4.16669M4.16669 10.0552L10 15.8885M4.16669 10.0552L10 4.22186"
-                                                                stroke="#3388CC"
-                                                                stroke-width="1.5"
-                                                                stroke-linecap="round"
-                                                                stroke-linejoin="round"
-                                                            />
-                                                        </svg>
-                                                    </button>
-                                                    <button
-                                                        className={`button-next-${company?.id}`}
-                                                    >
-                                                        <svg
-                                                            width="20"
-                                                            height="21"
-                                                            viewBox="0 0 20 21"
-                                                            fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                            <path
-                                                                d="M4.16669 10.0552H15.8334M15.8334 10.0552L10 4.22186M15.8334 10.0552L10 15.8885"
-                                                                stroke="#3388CC"
-                                                                stroke-width="1.5"
-                                                                stroke-linecap="round"
-                                                                stroke-linejoin="round"
-                                                            />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            ) : null}
-                                        </div>
-                                        <div className="company__info">
-                                            <div>
-                                                <div className="company__title">
-                                                    <h3>{company?.title}</h3>
-                                                    <div className="company__rating">
-                                                        ⭐{' '}
-                                                        {Number(
-                                                            company?.rating,
-                                                        ).toFixed(1)}
-                                                    </div>
-                                                </div>
-                                                <p className="company__product">
-                                                    {company?.product}
-                                                </p>
-                                                <p className="company__desc">
-                                                    {company?.description}
-                                                </p>
-                                            </div>
-
-                                            <button
-                                                className="company__btn"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    e.stopPropagation(); // prevent navigation from Link
-                                                    window.open(
-                                                        company.site,
-                                                        '_blank',
-                                                    );
-                                                }}
-                                            >
-                                                <a
-                                                    href={company.site}
-                                                    target={'_blank'}
-                                                >
-                                                    Перейти на сайт
-                                                </a>
-                                            </button>
-                                        </div>
-                                    </Link>
-                                );
-                            })}
+                        {topCompanies.map((company) => (
+                            <CompanyCard
+                                key={company?.id}
+                                company={company}
+                                top
+                                mobile={media500px}
+                            />
+                        ))}
                     </div>
+                )}
 
+                {!!otherCompanies.length && (
                     <div className="companies__grid">
-                        {!!otherCompanies.length &&
-                            otherCompanies.map((company) => (
-                                <Link
-                                    to={`/company/${company?.id}`}
-                                    key={company?.id}
-                                    className="company company--top"
-                                >
-                                    {/* <div key={company?.id} className="company"> */}
-                                    <div className="company__media">
-                                        {typeof company?.image === 'string' ? (
-                                            <div className="custom-swiper-nav">
-                                                <button
-                                                    className={`button-prev-${company?.id}`}
-                                                >
-                                                    <svg
-                                                        width="20"
-                                                        height="21"
-                                                        viewBox="0 0 20 21"
-                                                        fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <path
-                                                            d="M15.8334 10.0552H4.16669M4.16669 10.0552L10 15.8885M4.16669 10.0552L10 4.22186"
-                                                            stroke="#3388CC"
-                                                            stroke-width="1.5"
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                        />
-                                                    </svg>
-                                                </button>
-                                                <button
-                                                    className={`button-next-${company?.id}`}
-                                                >
-                                                    <svg
-                                                        width="20"
-                                                        height="21"
-                                                        viewBox="0 0 20 21"
-                                                        fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <path
-                                                            d="M4.16669 10.0552H15.8334M15.8334 10.0552L10 4.22186M15.8334 10.0552L10 15.8885"
-                                                            stroke="#3388CC"
-                                                            stroke-width="1.5"
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                        />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        ) : null}
-
-                                        {typeof company?.image1 === 'string' ? (
-                                            !media500px ? (
-                                                <Swiper
-                                                    modules={[Navigation]}
-                                                    spaceBetween={20}
-                                                    slidesPerView={1}
-                                                    navigation={{
-                                                        prevEl: `.button-prev-${company?.id}`,
-                                                        nextEl: `.button-next-${company?.id}`,
-                                                    }}
-                                                    loop
-                                                >
-                                                    {[
-                                                        company?.image1,
-                                                        company?.image2,
-                                                        company?.image3,
-                                                        company?.image4,
-                                                        company?.image5,
-                                                        company?.image6,
-                                                        company?.image7,
-                                                        company?.image8,
-                                                        company?.image9,
-                                                        company?.image10,
-                                                        company?.image11,
-                                                        company?.image12,
-                                                        company?.image13,
-                                                        company?.image14,
-                                                        company?.image15,
-                                                        company?.image16,
-                                                        company?.image17,
-                                                        company?.image18,
-                                                        company?.image19,
-                                                        company?.image20,
-                                                    ]
-                                                        ?.filter((el) => el)
-                                                        .map((media, index) => (
-                                                            <SwiperSlide
-                                                                key={index}
-                                                            >
-                                                                {media?.includes(
-                                                                    'mp4',
-                                                                ) ? (
-                                                                    <video
-                                                                        src={`${import.meta.env.VITE_GENERAL_IMAGE}${media}`}
-                                                                        controls
-                                                                        autoPlay
-                                                                        muted
-                                                                        loop
-                                                                        className="w-full h-full object-cover"
-                                                                    ></video>
-                                                                ) : (
-                                                                    <img
-                                                                        onError={(
-                                                                            e,
-                                                                        ) =>
-                                                                            (e.currentTarget.src =
-                                                                                '/images/no-img.png')
-                                                                        }
-                                                                        src={`${import.meta.env.VITE_GENERAL_IMAGE}${media}`}
-                                                                        alt={
-                                                                            company?.title
-                                                                        }
-                                                                        className="w-full h-full object-cover"
-                                                                    />
-                                                                )}
-                                                            </SwiperSlide>
-                                                        ))}
-                                                </Swiper>
-                                            ) : (
-                                                <img
-                                                    onError={(e) =>
-                                                        (e.currentTarget.src =
-                                                            '/images/no-img.png')
-                                                    }
-                                                    src={`https://remontdeco.ru/${company?.image1}`}
-                                                ></img>
-                                            )
-                                        ) : (
-                                            <img
-                                                onError={(e) =>
-                                                    (e.currentTarget.src =
-                                                        '/images/no-img.png')
-                                                }
-                                                src={`https://remontdeco.ru/${company?.image1}`}
-                                            ></img>
-                                        )}
-                                    </div>
-                                    <div className="company__info">
-                                        <div>
-                                            <div className="company__title">
-                                                <h3>{company?.title}</h3>
-                                                <div className="company__rating">
-                                                    ⭐{' '}
-                                                    {Number(
-                                                        company?.rating,
-                                                    ).toFixed(1)}
-                                                </div>
-                                            </div>
-                                            <p className="company__product">
-                                                {company?.product}
-                                            </p>
-                                            <p className="company__desc">
-                                                {company?.description}
-                                            </p>
-                                        </div>
-                                        <button
-                                            className="company__btn"
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                e.stopPropagation(); // prevent navigation from Link
-                                                window.open(
-                                                    company?.site,
-                                                    '_blank',
-                                                );
-                                            }}
-                                        >
-                                            <a href="#">Перейти на сайт</a>
-                                        </button>
-                                    </div>
-                                </Link>
-                            ))}
+                        {otherCompanies.map((company) => (
+                            <CompanyCard
+                                key={company?.id}
+                                company={company}
+                                mobile={media500px}
+                            />
+                        ))}
                     </div>
-                </div>
-            ) : (
-                <Loader />
-            )}
+                )}
+            </div>
         </Container>
     );
 };
