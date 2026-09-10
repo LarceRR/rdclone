@@ -20,9 +20,6 @@ const getMediaList = (company) =>
 
 const isVideo = (media) => /\.mp4(?:$|[?#])/i.test(media || '');
 
-const getFirstImage = (mediaList) =>
-    mediaList.find((media) => !isVideo(media)) || null;
-
 const MediaImage = ({ media, title }) => (
     <img
         loading="lazy"
@@ -37,26 +34,19 @@ const MediaImage = ({ media, title }) => (
     />
 );
 
-const MediaVideo = ({ media, load }) => (
+const MediaVideo = ({ media }) => (
     <video
         controls
         muted
         playsInline
-        preload="none"
+        preload="metadata"
         className="w-full h-full object-cover"
-    >
-        {load && (
-            <source
-                src={`${import.meta.env.VITE_GENERAL_IMAGE}${media}`}
-                type="video/mp4"
-            />
-        )}
-    </video>
+        src={`${import.meta.env.VITE_GENERAL_IMAGE}${media}`}
+    />
 );
 
 const CompanyMedia = ({ company, mobile }) => {
     const mediaList = useMemo(() => getMediaList(company), [company]);
-    const firstImage = getFirstImage(mediaList);
     const [activeIndex, setActiveIndex] = useState(0);
 
     useEffect(() => {
@@ -67,13 +57,14 @@ const CompanyMedia = ({ company, mobile }) => {
         return <MediaImage media="/images/no-img.png" title={company?.title} />;
     }
 
-    // Mobile Safari is especially sensitive to multiple video elements in a list.
-    // Never mount a video source on the category grid for small screens.
+    // On mobile keep only the first card media mounted. If it is a video,
+    // show the video without autoplay and load only its metadata.
     if (mobile) {
-        return firstImage ? (
-            <MediaImage media={firstImage} title={company?.title} />
+        const firstMedia = mediaList[0];
+        return isVideo(firstMedia) ? (
+            <MediaVideo media={firstMedia} />
         ) : (
-            <MediaImage media="/images/no-img.png" title={company?.title} />
+            <MediaImage media={firstMedia} title={company?.title} />
         );
     }
 
@@ -92,7 +83,7 @@ const CompanyMedia = ({ company, mobile }) => {
             {mediaList.map((media, index) => (
                 <SwiperSlide key={`${company?.id}-${media}-${index}`}>
                     {isVideo(media) ? (
-                        <MediaVideo media={media} load={index === activeIndex} />
+                        <MediaVideo media={media} />
                     ) : (
                         <MediaImage media={media} title={company?.title} />
                     )}
@@ -102,18 +93,22 @@ const CompanyMedia = ({ company, mobile }) => {
     );
 };
 
-const SwiperNavigation = ({ companyId }) => (
+const SwiperNavigation = ({ companyId, mobile }) => (
     <div className="custom-swiper-nav">
-        <button className={`button-prev-${companyId}`} aria-label="Предыдущее фото">
-            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15.8334 10.0552H4.16669M4.16669 10.0552L10 15.8885M4.16669 10.0552L10 4.22186" stroke="#3388CC" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-        </button>
-        <button className={`button-next-${companyId}`} aria-label="Следующее фото">
-            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4.16669 10.0552H15.8334M15.8334 10.0552L10 4.22186M15.8334 10.0552L10 15.8885" stroke="#3388CC" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-        </button>
+        {!mobile && (
+            <>
+                <button className={`button-prev-${companyId}`} aria-label="Предыдущее фото">
+                    <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.8334 10.0552H4.16669M4.16669 10.0552L10 15.8885M4.16669 10.0552L10 4.22186" stroke="#3388CC" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </button>
+                <button className={`button-next-${companyId}`} aria-label="Следующее фото">
+                    <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4.16669 10.0552H15.8334M15.8334 10.0552L10 4.22186M15.8334 10.0552L10 15.8885" stroke="#3388CC" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </button>
+            </>
+        )}
     </div>
 );
 
@@ -121,7 +116,7 @@ const CompanyCard = ({ company, top, mobile }) => (
     <Link to={`/company/${company?.id}`} className={`company ${top ? 'company--top' : ''}`}>
         <div className="company__media">
             {top && <div className="company__badge">Рекомендуем</div>}
-            {!mobile && <SwiperNavigation companyId={company?.id} />}
+            <SwiperNavigation companyId={company?.id} mobile={mobile} />
             <CompanyMedia company={company} mobile={mobile} />
         </div>
 
