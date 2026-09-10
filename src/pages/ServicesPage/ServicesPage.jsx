@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 import { Link, useLocation, useParams } from 'react-router-dom';
 
 import './ServicesPage.css';
-import ServiceInfo from './ServiceInfo/ServiceInfo';
+import ServiceInfoOptimized from './ServiceInfo/ServiceInfoOptimized';
 import axios from 'axios';
 import { useState } from 'react';
 import Loader from '../../components/Loader/Loader';
@@ -64,7 +64,7 @@ const ServicesPage = () => {
                             {'<-'} Назад
                         </Link>
 
-                        <ServiceInfo
+                        <ServiceInfoOptimized
                             selectedItem={selectedItem}
                             otherCompanies={otherCompanies}
                             categories={categories}
